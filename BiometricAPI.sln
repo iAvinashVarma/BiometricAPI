@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricAPI", "BiometricAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricAPI.Tests", "BiometricAPI.Tests\BiometricAPI.Tests.csproj", "{A6E3600A-86E0-4A76-86E5-7D57674BF649}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricBLL", "BiometricBLL\BiometricBLL.csproj", "{0274E3A5-1C92-4793-92B6-733009FE401B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A6E3600A-86E0-4A76-86E5-7D57674BF649}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6E3600A-86E0-4A76-86E5-7D57674BF649}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6E3600A-86E0-4A76-86E5-7D57674BF649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0274E3A5-1C92-4793-92B6-733009FE401B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0274E3A5-1C92-4793-92B6-733009FE401B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0274E3A5-1C92-4793-92B6-733009FE401B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0274E3A5-1C92-4793-92B6-733009FE401B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,29 @@
+[
+	{
+		"Id": 1,
+		"FirstName": "Ayn",
+		"LastName": "Rand",
+		"Gender": 2,
+		"DateOfBirth": "1905-02-02T00:00:00",
+		"IsRegisered": true,
+		"ModifiedDate": "2018-12-16T00:00:00"
+	},
+	{
+		"Id": 2,
+		"FirstName": "Albert",
+		"LastName": "Einstein",
+		"Gender": 1,
+		"DateOfBirth": "1879-03-14T00:00:00",
+		"IsRegisered": true,
+		"ModifiedDate": "2018-12-16T00:00:00"
+	},
+	{
+		"Id": 3,
+		"FirstName": "Friedrich",
+		"LastName": "Nietzsche",
+		"Gender": 1,
+		"DateOfBirth": "1844-10-15T00:00:00",
+		"IsRegisered": true,
+		"ModifiedDate": "2018-12-16T00:00:00"
+	}
+]

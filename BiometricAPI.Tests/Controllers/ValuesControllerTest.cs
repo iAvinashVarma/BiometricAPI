@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Web.Http;
+﻿using BiometricAPI.Controllers;
+using BiometricBLL.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BiometricAPI;
-using BiometricAPI.Controllers;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace BiometricAPI.Tests.Controllers
 {
@@ -17,29 +13,38 @@ namespace BiometricAPI.Tests.Controllers
 		public void Get()
 		{
 			// Arrange
-			ValuesController controller = new ValuesController();
+			ValuesController controller = new ValuesController
+			{
+				Request = new HttpRequestMessage(),
+				Configuration = new HttpConfiguration()
+			};
 
 			// Act
-			IEnumerable<string> result = controller.Get();
+			HttpResponseMessage response = controller.Get();
 
 			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(2, result.Count());
-			Assert.AreEqual("value1", result.ElementAt(0));
-			Assert.AreEqual("value2", result.ElementAt(1));
+			Assert.IsNotNull(response);
+			Assert.IsTrue(response.TryGetContentValue<Persons>(out Persons people));
 		}
 
 		[TestMethod]
-		public void GetById()
+		public void GetFirstName()
 		{
 			// Arrange
-			ValuesController controller = new ValuesController();
+			ValuesController controller = new ValuesController
+			{
+				Request = new HttpRequestMessage(),
+				Configuration = new HttpConfiguration()
+			};
+			string expectedLastName = "Rand";
 
 			// Act
-			string result = controller.Get(5);
+			HttpResponseMessage response = controller.GetFirstName("Ayn");
 
 			// Assert
-			Assert.AreEqual("value", result);
+			Assert.IsNotNull(response);
+			Assert.IsTrue(response.TryGetContentValue<Person>(out Person person));
+			Assert.AreEqual(expectedLastName, person.LastName);
 		}
 
 		[TestMethod]
@@ -49,7 +54,6 @@ namespace BiometricAPI.Tests.Controllers
 			ValuesController controller = new ValuesController();
 
 			// Act
-			controller.Post("value");
 
 			// Assert
 		}
@@ -61,7 +65,6 @@ namespace BiometricAPI.Tests.Controllers
 			ValuesController controller = new ValuesController();
 
 			// Act
-			controller.Put(5, "value");
 
 			// Assert
 		}
@@ -73,7 +76,6 @@ namespace BiometricAPI.Tests.Controllers
 			ValuesController controller = new ValuesController();
 
 			// Act
-			controller.Delete(5);
 
 			// Assert
 		}

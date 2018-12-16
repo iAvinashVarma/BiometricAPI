@@ -1,7 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using BiometricAPI.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BiometricAPI;
-using BiometricAPI.Controllers;
 
 namespace BiometricAPI.Tests.Controllers
 {
@@ -15,11 +13,8 @@ namespace BiometricAPI.Tests.Controllers
 			HomeController controller = new HomeController();
 
 			// Act
-			ViewResult result = controller.Index() as ViewResult;
 
 			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual("Home Page", result.ViewBag.Title);
 		}
 	}
 }
