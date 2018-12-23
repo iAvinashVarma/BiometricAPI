@@ -51,12 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BiometricFactory.cs" />
+    <Compile Include="Concrete\FileProcess.cs" />
+    <Compile Include="Factory\BiometricFactory.cs" />
     <Compile Include="Concrete\BiometricOperation.cs" />
     <Compile Include="Concrete\JsonBiometricOperation.cs" />
+    <Compile Include="Factory\IBiometricFactory.cs" />
     <Compile Include="Interface\IBiometricService.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Pattern\SingletonBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using BiometricBLL.Interface;
 using BiometricBLL.Models;
+using BiometricBLL.Pattern;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -1,4 +1,5 @@
-﻿using BiometricBLL;
+﻿using BiometricBLL.Factory;
+using BiometricBLL.Interface;
 using BiometricBLL.Models;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,25 @@ using System.Web.Http;
 
 namespace BiometricAPI.Controllers
 {
-	public class ValuesController : ApiController
+	/// <summary>
+	/// Biometric API
+	/// </summary>
+	public class BiometricController : ApiController
 	{
-		private readonly BiometricFactory biometricFactory = null;
+		private readonly IRepository<Person> biometricOperation = null;
 
-		public ValuesController()
+		/// <summary>
+		/// Dynamic Biometric Instantiator
+		/// </summary>
+		public BiometricController()
 		{
-			biometricFactory = new BiometricFactory(DataModel.Json);
+			biometricOperation = new BiometricFactory().BiometricOperation;
 		}
 
+		/// <summary>
+		/// Get all people information.
+		/// </summary>
+		/// <returns>People</returns>
 		// GET api/values
 		[HttpGet]
 		public HttpResponseMessage Get()
@@ -34,6 +45,11 @@ namespace BiometricAPI.Controllers
 			return httpResponseMessage;
 		}
 
+		/// <summary>
+		/// Get person information based on id.
+		/// </summary>
+		/// <param name="id">Person Id</param>
+		/// <returns>Person</returns>
 		public HttpResponseMessage GetById(int id)
 		{
 			HttpResponseMessage httpResponseMessage = null;
@@ -45,7 +61,7 @@ namespace BiometricAPI.Controllers
 				}
 				else
 				{
-					var filterPersons = People.FirstOrDefault(p => p.Id == id);
+					Person filterPersons = People.FirstOrDefault(p => p.Id == id);
 					if (filterPersons != null)
 					{
 						httpResponseMessage = Request.CreateResponse<Person>(HttpStatusCode.OK, filterPersons);
@@ -63,6 +79,11 @@ namespace BiometricAPI.Controllers
 			return httpResponseMessage;
 		}
 
+		/// <summary>
+		/// Get person information based on first name.
+		/// </summary>
+		/// <param name="firstName">Person First Name</param>
+		/// <returns>Person</returns>
 		// GET api/values?firstName=
 		[HttpGet]
 		public HttpResponseMessage GetFirstName(string firstName)
@@ -76,7 +97,7 @@ namespace BiometricAPI.Controllers
 				}
 				else
 				{
-					var filterPersons = People.FirstOrDefault(p => p.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase));
+					Person filterPersons = People.FirstOrDefault(p => p.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase));
 					if (filterPersons != null)
 					{
 						httpResponseMessage = Request.CreateResponse<Person>(HttpStatusCode.OK, filterPersons);
@@ -94,6 +115,11 @@ namespace BiometricAPI.Controllers
 			return httpResponseMessage;
 		}
 
+		/// <summary>
+		/// Get person information based on last name.
+		/// </summary>
+		/// <param name="lastName">Person Last Name</param>
+		/// <returns>Person</returns>
 		// GET api/values?lastName=
 		[HttpGet]
 		public HttpResponseMessage GetLastName(string lastName)
@@ -107,7 +133,7 @@ namespace BiometricAPI.Controllers
 				}
 				else
 				{
-					var filterPersons = People.FirstOrDefault(p => p.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+					Person filterPersons = People.FirstOrDefault(p => p.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
 					if (filterPersons != null)
 					{
 						httpResponseMessage = Request.CreateResponse<Person>(HttpStatusCode.OK, filterPersons);
@@ -125,6 +151,11 @@ namespace BiometricAPI.Controllers
 			return httpResponseMessage;
 		}
 
+		/// <summary>
+		/// Create new person.
+		/// </summary>
+		/// <param name="person">Person Information</param>
+		/// <returns>Created Person</returns>
 		// POST api/values
 		[HttpPost]
 		public HttpResponseMessage Post([FromBody] Person person)
@@ -132,7 +163,7 @@ namespace BiometricAPI.Controllers
 			HttpResponseMessage httpResponseMessage = null;
 			try
 			{
-				var result = biometricFactory.BiometricOperation.Create(person);
+				Person result = biometricOperation.Create(person);
 				httpResponseMessage = Request.CreateResponse<Person>(HttpStatusCode.Created, result);
 				httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
 			}
@@ -143,6 +174,12 @@ namespace BiometricAPI.Controllers
 			return httpResponseMessage;
 		}
 
+		/// <summary>
+		/// Update existing person.
+		/// </summary>
+		/// <param name="id">Existing person id</param>
+		/// <param name="person">Existing Person information</param>
+		/// <returns>Updated Person</returns>
 		// PUT api/values/5
 		[HttpPut]
 		public HttpResponseMessage Put(int id, [FromBody] Person person)
@@ -150,7 +187,7 @@ namespace BiometricAPI.Controllers
 			HttpResponseMessage httpResponseMessage = null;
 			try
 			{
-				var result = biometricFactory.BiometricOperation.Update(id, person);
+				Person result = biometricOperation.Update(id, person);
 				httpResponseMessage = Request.CreateResponse<Person>(HttpStatusCode.Created, result);
 				httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
 			}
@@ -161,6 +198,11 @@ namespace BiometricAPI.Controllers
 			return httpResponseMessage;
 		}
 
+		/// <summary>
+		/// Delete existing person.
+		/// </summary>
+		/// <param name="id">Existing person id</param>
+		/// <returns>Deleted person information</returns>
 		// DELETE api/values/5
 		[HttpDelete]
 		public HttpResponseMessage Delete(int id)
@@ -168,8 +210,8 @@ namespace BiometricAPI.Controllers
 			HttpResponseMessage httpResponseMessage = null;
 			try
 			{
-				var person = People.FirstOrDefault(p => p.Id == id);
-				var result = biometricFactory.BiometricOperation.Delete(id);
+				Person person = People.FirstOrDefault(p => p.Id == id);
+				Person result = biometricOperation.Delete(id);
 				httpResponseMessage = Request.CreateResponse<Person>(HttpStatusCode.Created, result);
 				httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
 			}
@@ -184,11 +226,7 @@ namespace BiometricAPI.Controllers
 		{
 			get
 			{
-				Persons people = null;
-				if (biometricFactory != null)
-				{
-					people = biometricFactory.BiometricOperation.ReadAll() as Persons;
-				}
+				Persons people = biometricOperation.ReadAll() as Persons;
 				return people;
 			}
 		}

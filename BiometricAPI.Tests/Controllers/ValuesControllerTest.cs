@@ -13,7 +13,7 @@ namespace BiometricAPI.Tests.Controllers
 		public void Get()
 		{
 			// Arrange
-			ValuesController controller = new ValuesController
+			BiometricController controller = new BiometricController
 			{
 				Request = new HttpRequestMessage(),
 				Configuration = new HttpConfiguration()
@@ -31,7 +31,7 @@ namespace BiometricAPI.Tests.Controllers
 		public void GetFirstName()
 		{
 			// Arrange
-			ValuesController controller = new ValuesController
+			BiometricController controller = new BiometricController
 			{
 				Request = new HttpRequestMessage(),
 				Configuration = new HttpConfiguration()
@@ -51,7 +51,7 @@ namespace BiometricAPI.Tests.Controllers
 		public void Post()
 		{
 			// Arrange
-			ValuesController controller = new ValuesController();
+			BiometricController controller = new BiometricController();
 
 			// Act
 
@@ -62,7 +62,7 @@ namespace BiometricAPI.Tests.Controllers
 		public void Put()
 		{
 			// Arrange
-			ValuesController controller = new ValuesController();
+			BiometricController controller = new BiometricController();
 
 			// Act
 
@@ -73,7 +73,7 @@ namespace BiometricAPI.Tests.Controllers
 		public void Delete()
 		{
 			// Arrange
-			ValuesController controller = new ValuesController();
+			BiometricController controller = new BiometricController();
 
 			// Act
 

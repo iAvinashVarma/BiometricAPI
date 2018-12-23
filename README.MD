@@ -1,4 +1,4 @@
-# ThreadingEssential
+# Biometric API
 
 BiometricAPI is a WebAPI project to perform various operations to/from registration devices.
 

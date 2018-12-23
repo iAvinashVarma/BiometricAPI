@@ -1,16 +1,17 @@
 ﻿using BiometricBLL.Concrete;
 using BiometricBLL.Interface;
 using BiometricBLL.Models;
+using BiometricBLL.Pattern;
 
-namespace BiometricBLL
+namespace BiometricBLL.Factory
 {
-	public class BiometricFactory
+	public class BiometricFactory : IBiometricFactory
 	{
-		private readonly DataModel _dataModel;
+		DataModel _dataModel;
 
-		public BiometricFactory(DataModel dataModel)
+		public BiometricFactory()
 		{
-			_dataModel = dataModel;
+			_dataModel = DataModel.Json;
 		}
 
 		public IRepository<Person> BiometricOperation
@@ -39,13 +40,5 @@ namespace BiometricBLL
 				return biometricOperation;
 			}
 		}
-	}
-
-	public enum DataModel : byte
-	{
-		MSSQL,
-		Mongo,
-		Xml,
-		Json
 	}
 }
