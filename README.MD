@@ -31,3 +31,7 @@ v4.7.2
 * Before running, make sure to host in IIS or IISExpress with port 49236.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/602a9a126eee8c9c3436)
+
+## Documentation
+
+**[BiometricAPI Documentation](https://documenter.getpostman.com/view/1806674/RznEKyL8)**
