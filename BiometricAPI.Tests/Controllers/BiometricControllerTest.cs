@@ -7,7 +7,7 @@ using System.Web.Http;
 namespace BiometricAPI.Tests.Controllers
 {
 	[TestClass]
-	public class ValuesControllerTest
+	public class BiometricControllerTest
 	{
 		[TestMethod]
 		public void Get()
