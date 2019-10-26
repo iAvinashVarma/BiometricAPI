@@ -11,7 +11,7 @@ using System.Web.Http;
 namespace BiometricAPI.Controllers
 {
 	/// <summary>
-	/// Biometric API
+	/// Biometric APIs
 	/// </summary>
 	public class BiometricController : ApiController
 	{
