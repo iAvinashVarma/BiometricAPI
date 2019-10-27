@@ -8,5 +8,10 @@ namespace BiometricBLL.Custom
         {
 
         }
+
+        public MongoCredentialException(string message) : base(message)
+        {
+
+        }
     }
 }

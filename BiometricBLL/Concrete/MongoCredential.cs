@@ -18,17 +18,37 @@ namespace BiometricBLL.Concrete
         {
             get
             {
-                var processLevelAccessKey = Environment.GetEnvironmentVariable("MONGODB_ACCESSKEY", EnvironmentVariableTarget.Process);
-                var userLevelAccessKey = Environment.GetEnvironmentVariable("MONGODB_ACCESSKEY", EnvironmentVariableTarget.User);
+                return $"mongodb+srv://{UserName}:{AccessKey}@avpro-xigyn.mongodb.net/test?retryWrites=true&w=majority";
+            }
+        }
+
+        public string UserName
+        {
+            get
+            {
                 var processLevelUsername = Environment.GetEnvironmentVariable("MONGODB_USERNAME", EnvironmentVariableTarget.Process);
                 var userLevelUsername = Environment.GetEnvironmentVariable("MONGODB_USERNAME", EnvironmentVariableTarget.User);
-                var accessKey = string.IsNullOrEmpty(processLevelAccessKey) ? userLevelAccessKey : processLevelAccessKey;
                 var userName = string.IsNullOrEmpty(processLevelUsername) ? userLevelUsername : processLevelUsername;
-                if(string.IsNullOrEmpty(accessKey) || string.IsNullOrEmpty(userName))
+                if (string.IsNullOrEmpty(userName))
                 {
-                    throw new MongoCredentialException();
+                    throw new MongoCredentialException("Invalid UserName.");
                 }
-                return $"mongodb+srv://{userName}:{accessKey}@avpro-xigyn.mongodb.net/test?retryWrites=true&w=majority";
+                return userName;
+            }
+        }
+
+        public string AccessKey
+        {
+            get
+            {
+                var processLevelAccessKey = Environment.GetEnvironmentVariable("MONGODB_ACCESSKEY", EnvironmentVariableTarget.Process);
+                var userLevelAccessKey = Environment.GetEnvironmentVariable("MONGODB_ACCESSKEY", EnvironmentVariableTarget.User);
+                var accessKey = string.IsNullOrEmpty(processLevelAccessKey) ? userLevelAccessKey : processLevelAccessKey;
+                if (string.IsNullOrEmpty(accessKey))
+                {
+                    throw new MongoCredentialException("Invalid AccessKey.");
+                }
+                return accessKey;
             }
         }
     }
