@@ -1,19 +1,21 @@
 ﻿using BiometricAPI.Controllers;
-using BiometricBLL.Models;
+using BiometricDAL.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 
 namespace BiometricAPI.Tests.Controllers
 {
-	[TestClass]
+    [TestClass]
 	public class BiometricControllerTest
 	{
 		[TestMethod]
 		public void Get()
 		{
-			// Arrange
-			BiometricController controller = new BiometricController
+            // Arrange
+            BiometricController controller = new BiometricController
 			{
 				Request = new HttpRequestMessage(),
 				Configuration = new HttpConfiguration()
@@ -24,30 +26,32 @@ namespace BiometricAPI.Tests.Controllers
 
 			// Assert
 			Assert.IsNotNull(response);
-			Assert.IsTrue(response.TryGetContentValue<Persons>(out Persons people));
+            Assert.IsTrue(response.TryGetContentValue<IEnumerable<Person>>(out _));
 		}
 
 		[TestMethod]
 		public void GetFirstName()
-		{
-			// Arrange
-			BiometricController controller = new BiometricController
-			{
-				Request = new HttpRequestMessage(),
-				Configuration = new HttpConfiguration()
-			};
-			string expectedLastName = "Rand";
+        {
+            // Arrange
+            using (BiometricController controller = new BiometricController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            })
+            {
+                string expectedLastName = "Rand";
 
-			// Act
-			HttpResponseMessage response = controller.GetFirstName("Ayn");
+                // Act
+                HttpResponseMessage response = controller.GetFirstName("Ayn");
 
-			// Assert
-			Assert.IsNotNull(response);
-			Assert.IsTrue(response.TryGetContentValue<Person>(out Person person));
-			Assert.AreEqual(expectedLastName, person.LastName);
-		}
+                // Assert
+                Assert.IsNotNull(response);
+                Assert.IsTrue(response.TryGetContentValue(out IEnumerable<Person> persons));
+                Assert.AreEqual(expectedLastName, persons.ToList().FirstOrDefault().LastName);
+            }
+        }
 
-		[TestMethod]
+        [TestMethod]
 		public void Post()
 		{
 			// Arrange
