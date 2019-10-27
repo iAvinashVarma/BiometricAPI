@@ -18,7 +18,15 @@ namespace BiometricBLL.Concrete
         {
             get
             {
-                return $"mongodb+srv://{UserName}:{AccessKey}@avpro-xigyn.mongodb.net/test?retryWrites=true&w=majority";
+                return $"{Prototype}://{UserName}:{AccessKey}@{ConnectionUrl}?retryWrites=true&w=majority";
+            }
+        }
+
+        public string Prototype
+        {
+            get
+            {
+                return "mongodb+srv";
             }
         }
 
@@ -49,6 +57,21 @@ namespace BiometricBLL.Concrete
                     throw new MongoCredentialException("Invalid AccessKey.");
                 }
                 return accessKey;
+            }
+        }
+
+        public string ConnectionUrl
+        {
+            get
+            {
+                var processLevelConnectionUrl = Environment.GetEnvironmentVariable("MONGODB_CONNECTIONURL", EnvironmentVariableTarget.Process);
+                var userLevelConnectionUrl = Environment.GetEnvironmentVariable("MONGODB_CONNECTIONURL", EnvironmentVariableTarget.User);
+                var connectionUrl = string.IsNullOrEmpty(processLevelConnectionUrl) ? userLevelConnectionUrl : processLevelConnectionUrl;
+                if (string.IsNullOrEmpty(connectionUrl))
+                {
+                    throw new MongoCredentialException("Invalid ConnectionUrl.");
+                }
+                return connectionUrl;
             }
         }
     }
