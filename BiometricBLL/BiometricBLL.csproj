@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\FileProcess.cs" />
+    <Compile Include="Concrete\MongoCredential.cs" />
+    <Compile Include="Custom\MongoCredentialException.cs" />
     <Compile Include="Factory\BiometricFactory.cs" />
     <Compile Include="Concrete\BiometricOperation.cs" />
     <Compile Include="Concrete\JsonBiometricOperation.cs" />
