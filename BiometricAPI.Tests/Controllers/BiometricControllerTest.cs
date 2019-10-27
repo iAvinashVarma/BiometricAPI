@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace BiometricAPI.Tests.Controllers
 {
+    [Ignore]
     [TestClass]
 	public class BiometricControllerTest
 	{
