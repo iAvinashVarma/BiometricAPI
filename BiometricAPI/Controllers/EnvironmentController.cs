@@ -1,14 +1,15 @@
 ﻿using BiometricBLL.Concrete;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace BiometricAPI.Controllers
 {
     /// <summary>
     /// Environment APIs
     /// </summary>
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class EnvironmentController : ApiController
     {
         /// <summary>

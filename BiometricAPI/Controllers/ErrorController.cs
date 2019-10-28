@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace BiometricAPI.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : ApiController
     {
         [AllowAnonymous]
