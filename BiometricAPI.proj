@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Start">
+    <Import Project="lib\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+    <PropertyGroup>
+        <Environment></Environment>
+        <BiometricProjDir>$(MSBuildStartupDirectory)\BiometricAPI\</BiometricProjDir>
+        <BiometricApiProj>$(BiometricProjDir)\BiometricAPI.csproj</BiometricApiProj>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectToBuild Include="$(BiometricApiProj)">
+            <Properties>Configuration=Release</Properties>
+        </ProjectToBuild>
+    </ItemGroup>
+    <Target Name="Start">
+        <CallTarget Targets="Build" />
+    </Target>
+    <Target Name="Build">
+        <MSBuild Projects="@(ProjectToBuild)"/>
+    </Target>
+</Project>

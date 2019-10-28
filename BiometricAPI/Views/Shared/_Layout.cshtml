@@ -1,14 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+    var fileInfo = new System.IO.FileInfo(assembly.Location);
+    var lastModified = fileInfo.LastWriteTime;
+    var lastUpdateMessage = string.Format("{0:f}", lastModified);
+}
+<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<title>@ViewBag.Title</title>
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -24,17 +30,22 @@
                 </ul>
             </div>
         </div>
-	</div>
-	<div class="container body-content">
-		@RenderBody()
-		<hr />
-		<footer>
-            <p>&copy; @DateTime.Now.Year - BiometricAPI</p>
-		</footer>
-	</div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="pull-left">Copyright &copy; @DateTime.Now.Year - BiometricAPI by Avi</p>
+            <div class="pull-right">
+                <ul class="list-inline">
+                    <li>Last Update: <strong>@lastUpdateMessage</strong> (@TimeZone.CurrentTimeZone.StandardName)</li>
+                </ul>
+            </div>
+        </footer>
+    </div>
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
