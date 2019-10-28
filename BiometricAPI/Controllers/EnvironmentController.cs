@@ -20,14 +20,7 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage GetUserName(string userName)
         {
             HttpResponseMessage httpResponseMessage;
-            try
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, string.IsNullOrEmpty(userName) ? MongoCredential.Instance.UserName : userName);
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, string.IsNullOrEmpty(userName) ? MongoCredential.Instance.UserName : userName);
             return httpResponseMessage;
         }
     }

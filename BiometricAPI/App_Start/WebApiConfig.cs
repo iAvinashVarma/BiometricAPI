@@ -16,7 +16,17 @@ namespace BiometricAPI
 				defaults: new { id = RouteParameter.Optional }
 			);
 
-			config.Formatters.XmlFormatter.UseXmlSerializer = true;
+            config.Routes.MapHttpRoute(
+                name: "DefaultCatchall",
+                routeTemplate: "api/{*url}",
+                defaults: new
+                {
+                    controller = "Error",
+                    action = "404"
+                }
+            );
+
+            config.Formatters.XmlFormatter.UseXmlSerializer = true;
 		}
 	}
 }

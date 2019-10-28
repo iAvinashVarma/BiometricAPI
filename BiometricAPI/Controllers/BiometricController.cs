@@ -3,7 +3,6 @@ using BiometricDAL.Model;
 using BiometricDAL.Pattern;
 using BiometricDAL.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -35,15 +34,8 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Get()
         {
             HttpResponseMessage httpResponseMessage;
-            try
-            {
-                var people = personRepository.GetAll().ToList();
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, people);
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            var people = personRepository.GetAll().ToList();
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, people);
             return httpResponseMessage;
         }
 
@@ -55,15 +47,8 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage GetById(string id)
         {
             HttpResponseMessage httpResponseMessage;
-            try
-            {
-                var guid = new Guid(id);
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetById(guid));
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            var guid = new Guid(id);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetById(guid));
             return httpResponseMessage;
         }
 
@@ -72,19 +57,12 @@ namespace BiometricAPI.Controllers
         /// </summary>
         /// <param name="firstName">Person First Name</param>
         /// <returns>Person</returns>
-        // GET api/values?firstName=
+            // GET api/values?firstName=
         [HttpGet]
         public HttpResponseMessage GetFirstName(string firstName)
         {
             HttpResponseMessage httpResponseMessage;
-            try
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByField("firstName", firstName));
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByField("firstName", firstName));
             return httpResponseMessage;
         }
 
@@ -98,14 +76,7 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage GetLastName(string lastName)
         {
             HttpResponseMessage httpResponseMessage;
-            try
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByField("lastName", lastName));
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByField("lastName", lastName));
             return httpResponseMessage;
         }
 
@@ -119,16 +90,9 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Post([FromBody] Person person)
         {
             HttpResponseMessage httpResponseMessage;
-            try
-            {
-                personRepository.Add(person);
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created);
-                httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            personRepository.Add(person);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created);
+            httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
             return httpResponseMessage;
         }
 
@@ -143,16 +107,9 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Put(string id, [FromBody] Person person)
         {
             HttpResponseMessage httpResponseMessage = null;
-            try
-            {
-                var guid = new Guid(id);
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, personRepository.Update(guid, person));
-                httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            var guid = new Guid(id);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, personRepository.Update(guid, person));
+            httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
             return httpResponseMessage;
         }
 
@@ -166,15 +123,8 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Delete(string id)
         {
             HttpResponseMessage httpResponseMessage;
-            try
-            {
-                var guid = new Guid(id);
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.Accepted, personRepository.Remove(guid));
-            }
-            catch (Exception ex)
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
+            var guid = new Guid(id);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Accepted, personRepository.Remove(guid));
             return httpResponseMessage;
         }
     }
