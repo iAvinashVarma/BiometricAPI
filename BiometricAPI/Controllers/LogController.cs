@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,7 +15,7 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Get()
         {
             HttpResponseMessage httpResponseMessage;
-            var directory = @"D:\local\Temp\Logs\";
+            var directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
             var files = Directory.GetFiles(directory, "*.log");
             httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, files.ToList());
             return httpResponseMessage;
