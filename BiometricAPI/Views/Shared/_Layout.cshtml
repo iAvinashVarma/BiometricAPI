@@ -2,7 +2,8 @@
     var assembly = System.Reflection.Assembly.GetExecutingAssembly();
     var fileInfo = new System.IO.FileInfo(assembly.Location);
     var lastModified = fileInfo.LastWriteTime;
-    var lastUpdateMessage = string.Format("{0:f}", lastModified);
+    DateTime utcDateTime = DateTime.SpecifyKind(lastModified, DateTimeKind.Utc);
+    var lastUpdateMessage = string.Format("{0:f}", utcDateTime);
 }
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@
             <p class="pull-left">Copyright &copy; @DateTime.Now.Year - BiometricAPI by Avi</p>
             <div class="pull-right">
                 <ul class="list-inline">
-                    <li>Last Update: <strong>@lastUpdateMessage</strong> (@TimeZone.CurrentTimeZone.StandardName)</li>
+                    <li>Last Update: <strong>@lastUpdateMessage</strong> (UTC)</li>
                 </ul>
             </div>
         </footer>
