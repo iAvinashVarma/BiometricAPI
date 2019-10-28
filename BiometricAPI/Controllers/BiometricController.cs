@@ -1,7 +1,8 @@
 ﻿using BiometricBLL.Concrete;
-using BiometricDAL.Model;
-using BiometricDAL.Pattern;
-using BiometricDAL.Repository;
+using BiometricBLL.Pattern.Factory;
+using BiometricBLL.Model;
+using BiometricBLL.Pattern;
+using BiometricBLL.Pattern.Repository;
 using System;
 using System.Linq;
 using System.Net;
@@ -22,7 +23,7 @@ namespace BiometricAPI.Controllers
         /// </summary>
         public BiometricController()
         {
-            personRepository = new PersonRepository(MongoCredential.Instance.ConnectionString, MongoCredential.DatabaseName, MongoCredential.CollectionName);
+            personRepository = PersonFactory.Repository;
         }
 
         /// <summary>
@@ -53,34 +54,6 @@ namespace BiometricAPI.Controllers
         }
 
         /// <summary>
-        /// Get person information based on first name.
-        /// </summary>
-        /// <param name="firstName">Person First Name</param>
-        /// <returns>Person</returns>
-            // GET api/values?firstName=
-        [HttpGet]
-        public HttpResponseMessage GetFirstName(string firstName)
-        {
-            HttpResponseMessage httpResponseMessage;
-            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByField("firstName", firstName));
-            return httpResponseMessage;
-        }
-
-        /// <summary>
-        /// Get person information based on last name.
-        /// </summary>
-        /// <param name="lastName">Person Last Name</param>
-        /// <returns>Person</returns>
-        // GET api/values?lastName=
-        [HttpGet]
-        public HttpResponseMessage GetLastName(string lastName)
-        {
-            HttpResponseMessage httpResponseMessage;
-            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByField("lastName", lastName));
-            return httpResponseMessage;
-        }
-
-        /// <summary>
         /// Create new person.
         /// </summary>
         /// <param name="person">Person Information</param>
@@ -107,8 +80,8 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Put(string id, [FromBody] Person person)
         {
             HttpResponseMessage httpResponseMessage = null;
-            var guid = new Guid(id);
-            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, personRepository.Update(guid, person));
+            person.Id = new Guid(id);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, personRepository.Update(person));
             httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
             return httpResponseMessage;
         }

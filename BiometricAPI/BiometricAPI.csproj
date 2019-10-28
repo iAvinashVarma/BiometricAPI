@@ -299,10 +299,6 @@
       <Project>{0274e3a5-1c92-4793-92b6-733009fe401b}</Project>
       <Name>BiometricBLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BiometricDAL\BiometricDAL.csproj">
-      <Project>{27C574A0-B84D-45B4-B257-9793AD2D8E01}</Project>
-      <Name>BiometricDAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

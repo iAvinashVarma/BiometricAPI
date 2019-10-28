@@ -118,10 +118,6 @@
       <Project>{0274E3A5-1C92-4793-92B6-733009FE401B}</Project>
       <Name>BiometricBLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BiometricDAL\BiometricDAL.csproj">
-      <Project>{27C574A0-B84D-45B4-B257-9793AD2D8E01}</Project>
-      <Name>BiometricDAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

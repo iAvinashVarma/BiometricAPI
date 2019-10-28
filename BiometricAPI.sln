@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricAPI.Tests", "Biome
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricBLL", "BiometricBLL\BiometricBLL.csproj", "{0274E3A5-1C92-4793-92B6-733009FE401B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricDAL", "BiometricDAL\BiometricDAL.csproj", "{27C574A0-B84D-45B4-B257-9793AD2D8E01}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{0274E3A5-1C92-4793-92B6-733009FE401B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0274E3A5-1C92-4793-92B6-733009FE401B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0274E3A5-1C92-4793-92B6-733009FE401B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27C574A0-B84D-45B4-B257-9793AD2D8E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27C574A0-B84D-45B4-B257-9793AD2D8E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27C574A0-B84D-45B4-B257-9793AD2D8E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27C574A0-B84D-45B4-B257-9793AD2D8E01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

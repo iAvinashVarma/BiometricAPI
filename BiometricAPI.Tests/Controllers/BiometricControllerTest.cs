@@ -1,5 +1,5 @@
 ﻿using BiometricAPI.Controllers;
-using BiometricDAL.Model;
+using BiometricBLL.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,28 +29,6 @@ namespace BiometricAPI.Tests.Controllers
 			Assert.IsNotNull(response);
             Assert.IsTrue(response.TryGetContentValue<IEnumerable<Person>>(out _));
 		}
-
-		[TestMethod]
-		public void GetFirstName()
-        {
-            // Arrange
-            using (BiometricController controller = new BiometricController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            })
-            {
-                string expectedLastName = "Rand";
-
-                // Act
-                HttpResponseMessage response = controller.GetFirstName("Ayn");
-
-                // Assert
-                Assert.IsNotNull(response);
-                Assert.IsTrue(response.TryGetContentValue(out IEnumerable<Person> persons));
-                Assert.AreEqual(expectedLastName, persons.ToList().FirstOrDefault().LastName);
-            }
-        }
 
         [TestMethod]
 		public void Post()

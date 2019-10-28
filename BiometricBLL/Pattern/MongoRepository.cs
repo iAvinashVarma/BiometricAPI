@@ -1,18 +1,18 @@
-﻿using MongoDB.Bson;
+﻿using BiometricBLL.Model;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace BiometricDAL.Pattern
+namespace BiometricBLL.Pattern
 {
-    public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         protected readonly IMongoClient _mongoClient;
         protected readonly IMongoDatabase _mongoDatabase;
         protected readonly IMongoCollection<TEntity> _mongoCollection;
 
-        public BaseRepository(string connectionString, string databaseName, string collectionName)
+        public MongoRepository(string connectionString, string databaseName, string collectionName)
         {
             _mongoClient = new MongoClient(connectionString);
             _mongoDatabase = _mongoClient.GetDatabase(databaseName);
@@ -21,10 +21,11 @@ namespace BiometricDAL.Pattern
 
         public virtual void Add(TEntity entity)
         {
+            entity.ModifiedDate = DateTime.Now;
             _mongoCollection.InsertOne(entity);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             GC.SuppressFinalize(this);
         }
@@ -41,13 +42,6 @@ namespace BiometricDAL.Pattern
             return result;
         }
 
-        public virtual IEnumerable<TEntity> GetEntitiesByField(string fieldName, string fieldValue)
-        {
-            var filter = Builders<TEntity>.Filter.Eq(fieldName, fieldValue);
-            var result = _mongoCollection.Find(filter).ToList();
-            return result;
-        }
-
         public virtual bool Remove(Guid id)
         {
             var filter = Builders<TEntity>.Filter.Eq("_id", id);
@@ -55,17 +49,10 @@ namespace BiometricDAL.Pattern
             return result.DeletedCount != 0;
         }
 
-        public virtual bool Update(Guid id, string fieldName, string fieldValue)
+        public virtual bool Update(TEntity entity)
         {
-            var filter = Builders<TEntity>.Filter.Eq("_id", id);
-            var update = Builders<TEntity>.Update.Set(fieldName, fieldValue);
-            var result = _mongoCollection.UpdateOne(filter, update);
-            return result.ModifiedCount != 0;
-        }
-
-        public virtual bool Update(Guid id, TEntity entity)
-        {
-            var filter = Builders<TEntity>.Filter.Eq("_id", id);
+            var filter = Builders<TEntity>.Filter.Eq("_id", entity.Id);
+            entity.ModifiedDate = DateTime.Now;
             var result = _mongoCollection.ReplaceOne(filter, entity);
             return result.ModifiedCount != 0;
         }
