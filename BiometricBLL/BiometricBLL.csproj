@@ -82,11 +82,12 @@
   <ItemGroup>
     <Compile Include="Concrete\ConnectionProcess.cs" />
     <Compile Include="Concrete\FileProcess.cs" />
-    <Compile Include="Concrete\MongoCredential.cs" />
+    <Compile Include="Concrete\DatabaseCredential.cs" />
     <Compile Include="Custom\MongoCredentialException.cs" />
     <Compile Include="Enum\ConnectionType.cs" />
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Pattern\IPersonRepository.cs" />
     <Compile Include="Pattern\IRepository.cs" />
     <Compile Include="Pattern\JsonRepository.cs" />
     <Compile Include="Pattern\MongoRepository.cs" />

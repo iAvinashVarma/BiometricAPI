@@ -4,12 +4,12 @@ using System;
 
 namespace BiometricBLL.Concrete
 {
-    public class MongoCredential : SingletonBase<MongoCredential>
+    public class DatabaseCredential : SingletonBase<DatabaseCredential>
     {
         public const string DatabaseName = "biometric";
         public const string CollectionName = "person";
 
-        private MongoCredential()
+        private DatabaseCredential()
         {
 
         }

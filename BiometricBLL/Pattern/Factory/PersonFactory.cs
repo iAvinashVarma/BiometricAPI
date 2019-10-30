@@ -1,7 +1,6 @@
 ﻿using BiometricBLL.Concrete;
 using BiometricBLL.Enum;
 using BiometricBLL.Model;
-using BiometricBLL.Pattern;
 using JsonRepo = BiometricBLL.Pattern.Repository.Json;
 using MongoRepo = BiometricBLL.Pattern.Repository.Mongo;
 
@@ -9,11 +8,11 @@ namespace BiometricBLL.Pattern.Factory
 {
     public static class PersonFactory
     {
-        public static IRepository<Person> Repository
+        public static IPersonRepository<Person> Repository
         {
             get
             {
-                IRepository<Person> repository;
+                IPersonRepository<Person> repository;
                 var connectionType = ConnectionProcess.Instance.ConnectionType;
                 switch (connectionType)
                 {

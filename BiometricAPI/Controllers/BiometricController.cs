@@ -16,7 +16,7 @@ namespace BiometricAPI.Controllers
     /// </summary>
     public class BiometricController : ApiController
     {
-        private readonly IRepository<Person> personRepository = null;
+        private readonly IPersonRepository<Person> personRepository = null;
 
         /// <summary>
         /// Dynamic Biometric Instantiator
@@ -50,6 +50,30 @@ namespace BiometricAPI.Controllers
             HttpResponseMessage httpResponseMessage;
             var guid = new Guid(id);
             httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetById(guid));
+            return httpResponseMessage;
+        }
+
+        /// <summary>
+        /// Get person information based on FirstName.
+        /// </summary>
+        /// <param name="firstName">First Name</param>
+        /// <returns>People</returns>
+        public HttpResponseMessage GetByFirstName(string firstName)
+        {
+            HttpResponseMessage httpResponseMessage;
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByFirstName(firstName));
+            return httpResponseMessage;
+        }
+
+        /// <summary>
+        /// Get person information based on LastName.
+        /// </summary>
+        /// <param name="lastName">Last Name</param>
+        /// <returns>People</returns>
+        public HttpResponseMessage GetByLastName(string lastName)
+        {
+            HttpResponseMessage httpResponseMessage;
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetEntitiesByLastName(lastName));
             return httpResponseMessage;
         }
 
