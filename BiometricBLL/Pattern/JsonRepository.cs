@@ -6,6 +6,7 @@ using System.IO;
 using Newtonsoft.Json;
 using BiometricBLL.Concrete;
 using BiometricBLL.Model;
+using MongoDB.Bson;
 
 namespace BiometricBLL.Pattern
 {
@@ -32,13 +33,14 @@ namespace BiometricBLL.Pattern
             }
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             var entities = GetAll().ToList();
-            entity.Id = Guid.NewGuid();
+            entity.Id = ObjectId.GenerateNewId();
             entity.ModifiedDate = DateTime.Now;
             entities.Add(entity);
             SaveChanges(entities);
+            return entity;
         }
 
         public virtual void Dispose()
@@ -52,12 +54,12 @@ namespace BiometricBLL.Pattern
             return JsonConvert.DeserializeObject<IEnumerable<TEntity>>(entities);
         }
 
-        public virtual TEntity GetById(Guid id)
+        public virtual TEntity GetById(ObjectId id)
         {
             return GetAll().FirstOrDefault(p => p.Id == id);
         }
 
-        public virtual bool Remove(Guid id)
+        public virtual bool Remove(ObjectId id)
         {
             try
             {

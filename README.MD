@@ -26,4 +26,4 @@ Visual Studio | 2019 |
 
 ### Documentation
 
-* **[BiometricAPI Documentation](https://documenter.getpostman.com/view/1806674/RznEKyL8)**
+* **[BiometricAPI Documentation](https://documenter.getpostman.com/view/1806674/SW132JHm)**

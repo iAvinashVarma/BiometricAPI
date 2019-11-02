@@ -1,13 +1,12 @@
-﻿using BiometricBLL.Concrete;
-using BiometricBLL.Pattern.Factory;
+﻿using BiometricBLL.Pattern.Factory;
 using BiometricBLL.Model;
 using BiometricBLL.Pattern;
-using BiometricBLL.Pattern.Repository;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MongoDB.Bson;
 
 namespace BiometricAPI.Controllers
 {
@@ -48,8 +47,8 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage GetById(string id)
         {
             HttpResponseMessage httpResponseMessage;
-            var guid = new Guid(id);
-            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetById(guid));
+            var objectId = new ObjectId(id);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, personRepository.GetById(objectId));
             return httpResponseMessage;
         }
 
@@ -87,9 +86,9 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Post([FromBody] Person person)
         {
             HttpResponseMessage httpResponseMessage;
-            personRepository.Add(person);
-            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created);
-            httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
+            var createdPerson = personRepository.Add(person);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, createdPerson);
+            httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}/{createdPerson.Id}");
             return httpResponseMessage;
         }
 
@@ -103,10 +102,9 @@ namespace BiometricAPI.Controllers
         [HttpPut]
         public HttpResponseMessage Put(string id, [FromBody] Person person)
         {
-            HttpResponseMessage httpResponseMessage = null;
-            person.Id = new Guid(id);
-            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, personRepository.Update(person));
-            httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}{person.FirstName}");
+            person.Id = new ObjectId(id);
+            HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, personRepository.Update(person));
+            httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}/{person.Id}");
             return httpResponseMessage;
         }
 
@@ -120,8 +118,8 @@ namespace BiometricAPI.Controllers
         public HttpResponseMessage Delete(string id)
         {
             HttpResponseMessage httpResponseMessage;
-            var guid = new Guid(id);
-            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Accepted, personRepository.Remove(guid));
+            var objectId = new ObjectId(id);
+            httpResponseMessage = Request.CreateResponse(HttpStatusCode.Accepted, personRepository.Remove(objectId));
             return httpResponseMessage;
         }
     }

@@ -1,0 +1,405 @@
+{
+	"info": {
+		"_postman_id": "4a30cb15-8f63-451d-a5b4-f84aed388c57",
+		"name": "BiometricAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreatePerson",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e74e9f4f-a855-4695-84b3-03b53935797c",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Status code name has Created string\", function () {",
+							"    pm.response.to.have.status(\"Created\");",
+							"});",
+							"",
+							"pm.test(\"Need to get person data and set to environment variable\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"PersonId\", jsonData._id);",
+							"    pm.expect(jsonData._id).not.equal(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FirstName\": \"Avinash\",\r\n    \"LastName\": \"Varma\",\r\n    \"Gender\": 1,\r\n    \"DateOfBirth\": \"1990-04-02T16:00:00Z\",\r\n    \"IsRegistered\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{BiometricApiUrl}}/api/biometric",
+					"host": [
+						"{{BiometricApiUrl}}"
+					],
+					"path": [
+						"api",
+						"biometric"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadPeople",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2f00964-b7d1-4f75-92ad-027f8104f8c7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code name has OK string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Check if atleast one record is available\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"    if(pm.response.code === 200){",
+							"        var jsonData = pm.response.json();    ",
+							"        if(jsonData.length > 0){",
+							"            pm.expect(jsonData.length).to.be.above(0);",
+							"        } else {",
+							"            pm.test(\"Response body is empty \", function () {",
+							"               throw new Error(\"Empty response body\");",
+							"            });",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BiometricApiUrl}}/api/biometric",
+					"host": [
+						"{{BiometricApiUrl}}"
+					],
+					"path": [
+						"api",
+						"biometric"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadPersonById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "76b468e3-585e-4005-b162-bc096915b81d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code name has OK string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Check if data is available\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"    if(pm.response.code === 200){",
+							"        var jsonData = pm.response.json();    ",
+							"        if(jsonData._id){",
+							"            pm.expect(jsonData._id).not.equal(null);",
+							"        } else {",
+							"            pm.test(\"Response body is empty \", function () {",
+							"               throw new Error(\"Empty response body\");",
+							"            });",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BiometricApiUrl}}/api/biometric/{{PersonId}}",
+					"host": [
+						"{{BiometricApiUrl}}"
+					],
+					"path": [
+						"api",
+						"biometric",
+						"{{PersonId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePerson",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae9c68ec-3dbf-42cc-846b-bdd0340c719a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Status code name is Created\", function () {",
+							"    pm.response.to.have.status(\"Created\");",
+							"});",
+							"",
+							"pm.test(\"Check if true is retured\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"true\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"FirstName\": \"Avi\",\n    \"LastName\": \"Varma\",\n    \"Gender\": 2,\n    \"DateOfBirth\": \"1990-04-02T10:00:00\",\n    \"IsRegistered\": true\n}"
+				},
+				"url": {
+					"raw": "{{BiometricApiUrl}}/api/biometric/{{PersonId}}",
+					"host": [
+						"{{BiometricApiUrl}}"
+					],
+					"path": [
+						"api",
+						"biometric",
+						"{{PersonId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadPeopleByFirstName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58ccb669-f631-4070-aecb-e8dbcd1228b0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code name has OK string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Check if atleast one record is available\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"    if(pm.response.code === 200){",
+							"        var jsonData = pm.response.json();    ",
+							"        if(jsonData.length > 0){",
+							"            pm.expect(jsonData.length).to.be.above(0);",
+							"        } else {",
+							"            pm.test(\"Response body is empty \", function () {",
+							"               throw new Error(\"Empty response body\");",
+							"            });",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BiometricApiUrl}}/api/biometric?firstName=Avi",
+					"host": [
+						"{{BiometricApiUrl}}"
+					],
+					"path": [
+						"api",
+						"biometric"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Avi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadPersonByLastName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d12a73a2-187e-4f7e-b094-74f515e580bc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code name has OK string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Check if atleast one record is available\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"    if(pm.response.code === 200){",
+							"        var jsonData = pm.response.json();    ",
+							"        if(jsonData.length > 0){",
+							"            pm.expect(jsonData.length).to.be.above(0);",
+							"        } else {",
+							"            pm.test(\"Response body is empty \", function () {",
+							"               throw new Error(\"Empty response body\");",
+							"            });",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BiometricApiUrl}}/api/biometric?lastName=Varma",
+					"host": [
+						"{{BiometricApiUrl}}"
+					],
+					"path": [
+						"api",
+						"biometric"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Varma"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePerson",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e1d04c58-8331-4cfe-b492-9e23e16b3f8d",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"pm.test(\"Status code name is Accepted\", function () {",
+							"    pm.response.to.have.status(\"Accepted\");",
+							"});",
+							"",
+							"pm.test(\"Check if true is retured\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"true\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BiometricApiUrl}}/api/biometric/{{PersonId}}",
+					"host": [
+						"{{BiometricApiUrl}}"
+					],
+					"path": [
+						"api",
+						"biometric",
+						"{{PersonId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

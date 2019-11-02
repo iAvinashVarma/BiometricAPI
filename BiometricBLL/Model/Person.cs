@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using BiometricBLL.Custom.Converter;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System;
@@ -16,7 +17,8 @@ namespace BiometricBLL.Model
     {
         [JsonProperty(PropertyName = "_id")]
         [BsonId]
-        public Guid Id { get; set; }
+        [JsonConverter(typeof(ObjectIdConverter))]
+        public ObjectId Id { get; set; }
 
         [JsonProperty(PropertyName = "firstName")]
         [BsonElement("firstName")]

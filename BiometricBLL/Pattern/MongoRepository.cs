@@ -19,10 +19,11 @@ namespace BiometricBLL.Pattern
             _mongoCollection = _mongoDatabase.GetCollection<TEntity>(collectionName);
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             entity.ModifiedDate = DateTime.Now;
             _mongoCollection.InsertOne(entity);
+            return entity;
         }
 
         public virtual void Dispose()
@@ -35,14 +36,14 @@ namespace BiometricBLL.Pattern
             return _mongoCollection.Find(new BsonDocument()).ToList();
         }
 
-        public virtual TEntity GetById(Guid id)
+        public virtual TEntity GetById(ObjectId id)
         {
             var filter = Builders<TEntity>.Filter.Eq("_id", id);
             var result = _mongoCollection.Find(filter).SingleOrDefault();
             return result;
         }
 
-        public virtual bool Remove(Guid id)
+        public virtual bool Remove(ObjectId id)
         {
             var filter = Builders<TEntity>.Filter.Eq("_id", id);
             var result = _mongoCollection.DeleteOne(filter);

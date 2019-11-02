@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +7,10 @@ namespace BiometricBLL.Pattern
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
-        void Add(TEntity entity);
-        TEntity GetById(Guid id);
+        TEntity Add(TEntity entity);
+        TEntity GetById(ObjectId id);
         IEnumerable<TEntity> GetAll();
         bool Update(TEntity entity);
-        bool Remove(Guid id);
+        bool Remove(ObjectId id);
     }
 }

@@ -83,6 +83,7 @@
     <Compile Include="Concrete\ConnectionProcess.cs" />
     <Compile Include="Concrete\FileProcess.cs" />
     <Compile Include="Concrete\DatabaseCredential.cs" />
+    <Compile Include="Custom\Converter\ObjectIdConverter.cs" />
     <Compile Include="Custom\MongoCredentialException.cs" />
     <Compile Include="Enum\ConnectionType.cs" />
     <Compile Include="Model\IEntity.cs" />
