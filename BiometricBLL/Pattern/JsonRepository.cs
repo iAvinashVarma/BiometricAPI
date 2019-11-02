@@ -12,14 +12,14 @@ namespace BiometricBLL.Pattern
 {
     public abstract class JsonRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        public readonly string RelativeConnectionString;
+        private string _relativeConnectionString;
 
-        public string AbsoluteConnectionString;
+        private string _absoluteConnectionString;
 
         public JsonRepository(string relativeConnectionString)
         {
-            RelativeConnectionString = relativeConnectionString;
-            AbsoluteConnectionString = Path.Combine(AssemblyDirectory, relativeConnectionString);
+            _relativeConnectionString = relativeConnectionString;
+            _absoluteConnectionString = Path.Combine(AssemblyDirectory, relativeConnectionString);
         }
 
         public virtual string AssemblyDirectory
@@ -32,6 +32,9 @@ namespace BiometricBLL.Pattern
                 return Path.GetDirectoryName(path);
             }
         }
+
+        public string AbsoluteConnectionString { get => _absoluteConnectionString; set => _absoluteConnectionString = value; }
+        public string RelativeConnectionString { get => _relativeConnectionString; set => _relativeConnectionString = value; }
 
         public virtual TEntity Add(TEntity entity)
         {
@@ -87,6 +90,7 @@ namespace BiometricBLL.Pattern
                 var updateEntity = entities.FirstOrDefault(p => p.Id == entity.Id);
                 if (updateEntity != null)
                 {
+                    updateEntity = entity;
                     updateEntity.ModifiedDate = DateTime.Now;
                     entities.Remove(updateEntity);
                     entities.Add(updateEntity);
