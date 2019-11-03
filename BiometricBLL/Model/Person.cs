@@ -61,6 +61,15 @@ namespace BiometricBLL.Model
         public DateTime ModifiedDate { get; set; }
     }
 
+    public class PersonPatch
+    {
+        public ObjectId Id { get; set; }
+
+        public string LastName { get; set; }
+
+        public string FirstName { get; set; }
+    }
+
     public partial class PersonMetaData
     {
         [Required(ErrorMessageResourceName = "RequiredField")]

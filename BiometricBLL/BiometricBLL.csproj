@@ -40,6 +40,15 @@
     <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.2.0\lib\net471\DnsClient.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.9.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.9.2\lib\net452\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -51,6 +60,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="SharpCompress, Version=0.23.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpCompress.0.23.0\lib\net45\SharpCompress.dll</HintPath>
@@ -83,20 +95,27 @@
     <Compile Include="Concrete\ConnectionProcess.cs" />
     <Compile Include="Concrete\FileProcess.cs" />
     <Compile Include="Concrete\DatabaseCredential.cs" />
+    <Compile Include="Cryptography\PasswordHash.cs" />
     <Compile Include="Custom\Converter\ObjectIdConverter.cs" />
     <Compile Include="Custom\MongoCredentialException.cs" />
     <Compile Include="Enum\ConnectionType.cs" />
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Person.cs" />
-    <Compile Include="Pattern\IPersonRepository.cs" />
-    <Compile Include="Pattern\IRepository.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Pattern\Factory\UserFactory.cs" />
+    <Compile Include="Pattern\Interface\IPersonRepository.cs" />
+    <Compile Include="Pattern\Interface\IRepository.cs" />
+    <Compile Include="Pattern\Interface\IUserRepository.cs" />
     <Compile Include="Pattern\JsonRepository.cs" />
     <Compile Include="Pattern\MongoRepository.cs" />
+    <Compile Include="Pattern\Repository\Json\UserRepository.cs" />
+    <Compile Include="Pattern\Repository\Mongo\UserRepository.cs" />
     <Compile Include="Pattern\SingletonBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pattern\Repository\Json\PersonRepository.cs" />
     <Compile Include="Pattern\Repository\Mongo\PersonRepository.cs" />
     <Compile Include="Pattern\Factory\PersonFactory.cs" />
+    <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\Biometric.json">
@@ -104,6 +123,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\User.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

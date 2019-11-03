@@ -1,21 +1,22 @@
 ﻿using BiometricBLL.Pattern.Factory;
 using BiometricBLL.Model;
-using BiometricBLL.Pattern;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using MongoDB.Bson;
+using BiometricBLL.Pattern.Interface;
 
 namespace BiometricAPI.Controllers
 {
     /// <summary>
     /// Biometric APIs
     /// </summary>
+    [Authorize]
     public class BiometricController : ApiController
     {
-        private readonly IPersonRepository<Person> personRepository = null;
+        private readonly IPersonRepository<Person, PersonPatch> personRepository = null;
 
         /// <summary>
         /// Dynamic Biometric Instantiator
@@ -44,6 +45,7 @@ namespace BiometricAPI.Controllers
         /// </summary>
         /// <param name="id">Person Id</param>
         /// <returns>Person</returns>
+        [HttpGet]
         public HttpResponseMessage GetById(string id)
         {
             HttpResponseMessage httpResponseMessage;
@@ -57,6 +59,7 @@ namespace BiometricAPI.Controllers
         /// </summary>
         /// <param name="firstName">First Name</param>
         /// <returns>People</returns>
+        [HttpGet]
         public HttpResponseMessage GetByFirstName(string firstName)
         {
             HttpResponseMessage httpResponseMessage;
@@ -69,6 +72,7 @@ namespace BiometricAPI.Controllers
         /// </summary>
         /// <param name="lastName">Last Name</param>
         /// <returns>People</returns>
+        [HttpGet]
         public HttpResponseMessage GetByLastName(string lastName)
         {
             HttpResponseMessage httpResponseMessage;
@@ -104,6 +108,15 @@ namespace BiometricAPI.Controllers
         {
             person.Id = new ObjectId(id);
             HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, personRepository.Update(person));
+            httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}/{person.Id}");
+            return httpResponseMessage;
+        }
+
+        [HttpPatch]
+        public HttpResponseMessage Patch([FromBody] PersonPatch personPatch)
+        {
+            var person = personRepository.Patch(personPatch);
+            HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.Created, person);
             httpResponseMessage.Headers.Location = new Uri($"{Request.RequestUri}/{person.Id}");
             return httpResponseMessage;
         }

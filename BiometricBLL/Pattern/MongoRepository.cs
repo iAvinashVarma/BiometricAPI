@@ -1,4 +1,5 @@
 ﻿using BiometricBLL.Model;
+using BiometricBLL.Pattern.Interface;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -38,21 +39,21 @@ namespace BiometricBLL.Pattern
 
         public virtual TEntity GetById(ObjectId id)
         {
-            var filter = Builders<TEntity>.Filter.Eq("_id", id);
+            var filter = Builders<TEntity>.Filter.Eq(u => u.Id, id);
             var result = _mongoCollection.Find(filter).SingleOrDefault();
             return result;
         }
 
         public virtual bool Remove(ObjectId id)
         {
-            var filter = Builders<TEntity>.Filter.Eq("_id", id);
+            var filter = Builders<TEntity>.Filter.Eq(u => u.Id, id);
             var result = _mongoCollection.DeleteOne(filter);
             return result.DeletedCount != 0;
         }
 
         public virtual bool Update(TEntity entity)
         {
-            var filter = Builders<TEntity>.Filter.Eq("_id", entity.Id);
+            var filter = Builders<TEntity>.Filter.Eq(u => u.Id, entity.Id);
             entity.ModifiedDate = DateTime.Now;
             var result = _mongoCollection.ReplaceOne(filter, entity);
             return result.ModifiedCount != 0;

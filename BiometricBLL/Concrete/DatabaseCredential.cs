@@ -7,7 +7,8 @@ namespace BiometricBLL.Concrete
     public class DatabaseCredential : SingletonBase<DatabaseCredential>
     {
         public const string DatabaseName = "biometric";
-        public const string CollectionName = "person";
+        public const string PersonCollectionName = "person";
+        public const string UserCollectionName = "user";
 
         private DatabaseCredential()
         {

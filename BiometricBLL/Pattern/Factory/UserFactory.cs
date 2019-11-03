@@ -7,25 +7,25 @@ using MongoRepo = BiometricBLL.Pattern.Repository.Mongo;
 
 namespace BiometricBLL.Pattern.Factory
 {
-    public static class PersonFactory
+    public static class UserFactory
     {
-        public static IPersonRepository<Person, PersonPatch> Repository
+        public static IUserRepository<User> Repository
         {
             get
             {
-                IPersonRepository<Person, PersonPatch> repository;
+                IUserRepository<User> repository;
                 var connectionType = ConnectionType.Json;
                 //var connectionType = ConnectionProcess.Instance.ConnectionType;
                 switch (connectionType)
                 {
                     case ConnectionType.MongoDb:
-                        repository = new MongoRepo.PersonRepository();
+                        repository = new MongoRepo.UserRepository();
                         break;
                     case ConnectionType.Json:
-                        repository = new JsonRepo.PersonRepository();
+                        repository = new JsonRepo.UserRepository();
                         break;
                     default:
-                        repository = new JsonRepo.PersonRepository();
+                        repository = new JsonRepo.UserRepository();
                         break;
                 }
                 return repository;

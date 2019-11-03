@@ -1,7 +1,9 @@
 ﻿using BiometricAPI.Controllers;
+using BiometricBLL.Cryptography;
 using BiometricBLL.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 
@@ -39,7 +41,9 @@ namespace BiometricAPI.Tests.Controllers
             };
 
             // Act
-            HttpResponseMessage response = controller.GetById("5dbd08a6dcb8333db8691345");
+            HttpResponseMessage peopleResponse = controller.Get();
+            peopleResponse.TryGetContentValue(out IEnumerable<Person> people);
+            HttpResponseMessage response = controller.GetById(people.FirstOrDefault().Id.ToString());
 
             // Assert
             Assert.IsNotNull(response);

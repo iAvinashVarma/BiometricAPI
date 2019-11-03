@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using BiometricBLL.Concrete;
 using BiometricBLL.Model;
 using MongoDB.Bson;
+using BiometricBLL.Pattern.Interface;
 
 namespace BiometricBLL.Pattern
 {
