@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using BiometricBLL.Custom.Converter;
 using MongoDB.Bson;
@@ -32,6 +33,26 @@ namespace BiometricBLL.Model
         [JsonProperty(PropertyName = "password")]
         [BsonElement("password")]
         public string Password { get; set; }
+
+        [JsonProperty(PropertyName = "modifiedDate")]
+        [BsonElement("modifiedDate")]
+        public DateTime ModifiedDate { get; set; }
+    }
+
+    public class UserInfo
+    {
+        [JsonProperty(PropertyName = "_id")]
+        [BsonId]
+        [JsonConverter(typeof(ObjectIdConverter))]
+        public ObjectId Id { get; set; }
+
+        [JsonProperty(PropertyName = "name")]
+        [BsonElement("name")]
+        public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "email")]
+        [BsonElement("email")]
+        public string Email { get; set; }
 
         [JsonProperty(PropertyName = "modifiedDate")]
         [BsonElement("modifiedDate")]

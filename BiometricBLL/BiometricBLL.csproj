@@ -81,6 +81,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -95,6 +96,7 @@
     <Compile Include="Concrete\ConnectionProcess.cs" />
     <Compile Include="Concrete\FileProcess.cs" />
     <Compile Include="Concrete\DatabaseCredential.cs" />
+    <Compile Include="Configuration\AutoMapperConfig.cs" />
     <Compile Include="Cryptography\PasswordHash.cs" />
     <Compile Include="Custom\Converter\ObjectIdConverter.cs" />
     <Compile Include="Custom\MongoCredentialException.cs" />
@@ -129,5 +131,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

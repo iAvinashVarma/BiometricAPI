@@ -1,6 +1,5 @@
 ﻿using BiometricBLL.Model;
 using BiometricBLL.Pattern.Factory;
-using BiometricBLL.Pattern.Interface;
 
 namespace BiometricBLL.Service
 {

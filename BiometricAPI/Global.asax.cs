@@ -1,5 +1,6 @@
 ﻿using BiometricAPI.Formatter;
 using BiometricAPI.Infrastructure;
+using BiometricBLL.Configuration;
 using System;
 using System.Net.Http.Formatting;
 using System.Web.Http;
@@ -22,7 +23,8 @@ namespace BiometricAPI
 		{
 			var csvQueryStringMapping = new QueryStringMapping("format", "csv", "text/csv");
 			var csvMediaTypeFormatter = new CSVMediaTypeFormatter(csvQueryStringMapping);
-			AreaRegistration.RegisterAllAreas();
+            AutoMapperConfig.Initialize();
+            AreaRegistration.RegisterAllAreas();
 			GlobalConfiguration.Configure(WebApiConfig.Register);
 			GlobalConfiguration.Configuration.Formatters.Add(csvMediaTypeFormatter);
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

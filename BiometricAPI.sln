@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricAPI.Tests", "Biome
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricBLL", "BiometricBLL\BiometricBLL.csproj", "{0274E3A5-1C92-4793-92B6-733009FE401B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricBLLTests", "BiometricBLLTests\BiometricBLLTests.csproj", "{5CBD9712-D781-4E76-B6B6-55F4F822D647}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometricBLL.Tests", "BiometricBLL.Tests\BiometricBLL.Tests.csproj", "{5CBD9712-D781-4E76-B6B6-55F4F822D647}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

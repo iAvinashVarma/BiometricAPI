@@ -7,7 +7,144 @@
 	"item": [
 		{
 			"name": "Account",
-			"item": [],
+			"item": [
+				{
+					"name": "CreateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6bd308bd-32ca-4c19-a8f3-fe6fd4afc4ba",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Status code name has Created string\", function () {",
+									"    pm.response.to.have.status(\"Created\");",
+									"});",
+									"",
+									"pm.test(\"Need to get user data and set to environment variable\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"UserId\", jsonData._id);",
+									"    pm.expect(jsonData._id).not.equal(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "{{UserName}}",
+									"type": "text"
+								},
+								{
+									"key": "Email",
+									"value": "{{Email}}",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "{{Password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BiometricApiUrl}}/api/account",
+							"host": [
+								"{{BiometricApiUrl}}"
+							],
+							"path": [
+								"api",
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadUserById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2501dcc1-f978-4c64-b332-63039e6f9c54",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code name has OK string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"",
+									"pm.test(\"Check if data is available\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    if(pm.response.code === 200){",
+									"        var jsonData = pm.response.json();    ",
+									"        if(jsonData._id){",
+									"            pm.expect(jsonData._id).not.equal(null);",
+									"        } else {",
+									"            pm.test(\"Response body is empty \", function () {",
+									"               throw new Error(\"Empty response body\");",
+									"            });",
+									"        }",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BiometricApiUrl}}/api/account/{{UserId}}",
+							"host": [
+								"{{BiometricApiUrl}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"{{UserId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -67,12 +204,12 @@
 								},
 								{
 									"key": "username",
-									"value": "avinash@email.com",
+									"value": "{{Email}}",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Abcd1234",
+									"value": "{{Password}}",
 									"type": "text"
 								}
 							]

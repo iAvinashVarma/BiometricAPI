@@ -14,8 +14,7 @@ namespace BiometricBLL.Pattern.Factory
             get
             {
                 IPersonRepository<Person, PersonPatch> repository;
-                var connectionType = ConnectionType.Json;
-                //var connectionType = ConnectionProcess.Instance.ConnectionType;
+                var connectionType = ConnectionProcess.Instance.ConnectionType;
                 switch (connectionType)
                 {
                     case ConnectionType.MongoDb:

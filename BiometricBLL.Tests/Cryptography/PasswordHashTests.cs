@@ -1,6 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BiometricBLL.Cryptography;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BiometricBLL.Cryptography.Tests
+namespace BiometricBLL.Tests.Cryptography
 {
     [TestClass]
     public class PasswordHashTests
